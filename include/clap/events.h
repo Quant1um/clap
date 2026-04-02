@@ -282,21 +282,28 @@ typedef struct clap_event_transport {
 
    uint32_t flags; // see clap_transport_flags
 
+   // when CLAP_TRANSPORT_HAS_BEATS_TIMELINE is set:
    clap_beattime song_pos_beats;   // position in beats
+   // when CLAP_TRANSPORT_HAS_SECONDS_TIMELINE is set:
    clap_sectime  song_pos_seconds; // position in seconds
 
+   // when CLAP_TRANSPORT_HAS_TEMPO is set
    double tempo;     // in bpm
    double tempo_inc; // tempo increment for each sample and until the next
                      // time info event
 
+   // when CLAP_TRANSPORT_HAS_BEATS_TIMELINE & CLAP_TRANSPORT_IS_LOOP_ACTIVE are set:
    clap_beattime loop_start_beats;
    clap_beattime loop_end_beats;
+   // when CLAP_TRANSPORT_HAS_SECONDS_TIMELINE & CLAP_TRANSPORT_IS_LOOP_ACTIVE are set:
    clap_sectime  loop_start_seconds;
    clap_sectime  loop_end_seconds;
 
+   // when CLAP_TRANSPORT_HAS_BEATS_TIMELINE is set:
    clap_beattime bar_start;  // start pos of the current bar
    int32_t       bar_number; // bar at song pos 0 has the number 0
 
+   // when CLAP_TRANSPORT_HAS_TIME_SIGNATURE is set:
    uint16_t tsig_num;   // time signature numerator
    uint16_t tsig_denom; // time signature denominator
 } clap_event_transport_t;

@@ -23,6 +23,11 @@ extern "C" {
 // to the audio interface with all the bad consequences it can have.
 //
 // The constant mask is a hint.
+//
+// clap_audio_buffer must not be mutated by the plugin, except for:
+//  - the contents of an output buffer (note that the pointers must not be mutated)
+//  - the constant_mask of an output buffer
+//  - the latency of an output buffer
 typedef struct clap_audio_buffer {
    // Either data32 or data64 pointer will be set.
    float  **data32;

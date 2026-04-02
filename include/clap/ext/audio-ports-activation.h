@@ -19,11 +19,13 @@
 /// and the constant_mask shall be set.
 ///
 /// Audio ports are initially in the active state after creating the plugin instance.
-/// Audio ports state are not saved in the plugin state, so the host must restore the
+/// Audio ports state is not saved in the plugin state, so the host must restore the
 /// audio ports state after creating the plugin instance.
 ///
-/// Audio ports state is invalidated by clap_plugin_audio_ports_config.select() and
-/// clap_host_audio_ports.rescan(CLAP_AUDIO_PORTS_RESCAN_LIST).
+/// Audio ports activation state is invalidated by:
+/// - clap_plugin_audio_ports_config.select()
+/// - clap_plugin_configurable_audio_ports.apply_configuration()
+/// - clap_host_audio_ports.rescan(CLAP_AUDIO_PORTS_RESCAN_LIST)
 
 static CLAP_CONSTEXPR const char CLAP_EXT_AUDIO_PORTS_ACTIVATION[] =
    "clap.audio-ports-activation/2";

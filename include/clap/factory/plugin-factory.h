@@ -29,6 +29,7 @@ typedef struct clap_plugin_factory {
 
    // Create a clap_plugin by its plugin_id.
    // The returned pointer must be freed by calling plugin->destroy(plugin);
+   // The returned plugin object cannot be moved (the exact same address must be used for every plugin function call)
    // The plugin is not allowed to use the host callbacks in the create method.
    // Returns null in case of error.
    // [thread-safe]

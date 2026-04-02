@@ -61,6 +61,11 @@ typedef struct clap_audio_port_info {
    // in-place processing: allow the host to use the same buffer for input and output
    // if supported set the pair port id.
    // if not supported set to CLAP_INVALID_ID
+   //
+   // an in-place pair of ports is considered valid if:
+   //  - in_place_pair of the input is set to id of the output
+   //  - in_place_pair of the output is set to id of the input
+   //  - both input and output have the same port_type and channel_count
    clap_id in_place_pair;
 } clap_audio_port_info_t;
 
