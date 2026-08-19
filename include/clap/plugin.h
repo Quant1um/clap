@@ -69,7 +69,7 @@ typedef struct clap_plugin {
                             double                    sample_rate,
                             uint32_t                  min_frames_count,
                             uint32_t                  max_frames_count);
-   // [main-thread & active]
+   // [main-thread & active & !processing]
    void(CLAP_ABI *deactivate)(const struct clap_plugin *plugin);
 
    // Call start processing before processing.
