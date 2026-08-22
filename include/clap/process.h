@@ -22,7 +22,7 @@ enum {
    // Rely upon the plugin's tail to determine if the host should continue to call process.
    //
    // Stopping processing after at least [clap_plugin_tail.get] samples of quiet input and no events is expected to not cause significant truncation of the audio output.
-   // Calling plugin->reset() or plugin->activate() resets the tail and the plugin is expected to produce silence until the next event or variation in audio input.
+   // Calling plugin->reset() or plugin->activate() resets the tail and the plugin is expected to produce silence until a resume condition occurs (see CLAP_PROCESS_SLEEP).
    //
    // If the host does not support the tail extension, it is up to host to determine if it should continue processing or not.
    CLAP_PROCESS_TAIL = 3,
