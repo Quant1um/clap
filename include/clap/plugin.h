@@ -57,10 +57,15 @@ typedef struct clap_plugin {
    // [main-thread & !active]
    void(CLAP_ABI *destroy)(const struct clap_plugin *plugin);
 
-   // Activate and deactivate the plugin.
+   // Activate the plugin.
+   //
    // In this call the plugin may allocate memory and prepare everything needed for the process
    // call. The process's sample rate will be constant and process's frame count will included in
    // the [min, max] range, which is bounded by [1, INT32_MAX].
+   //
+   // The plugin is considered active as soon as activate returns true, meaning
+   // calls that require the plugin to be active must only be made after activate returns.
+   //
    // In this call the plugin may call host-provided methods marked [being-activated].
    // Once activated the latency and port configuration must remain constant, until deactivation.
    // Returns true on success.
@@ -69,7 +74,15 @@ typedef struct clap_plugin {
                             double                    sample_rate,
                             uint32_t                  min_frames_count,
                             uint32_t                  max_frames_count);
-   // [main-thread & active & !processing]
+
+   // Deactivate the plugin.
+   //
+   // If the plugin is currently in the processing state, it is considered to be stopping processing
+   // as part of deactivation (in other words, it is not necessary to call stop_processing).
+   //
+   // The plugin is considered deactivated (!active) as soon as deactivate is called, meaning
+   // that it cannot be called concurrently with other methods that require the plugin to be active.
+   // [main-thread & active]
    void(CLAP_ABI *deactivate)(const struct clap_plugin *plugin);
 
    // Call start processing before processing.
